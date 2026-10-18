@@ -1,12 +1,13 @@
 
 using E_Commerce.API.Extensions;
 using E_Commerce.Infrastructure;
+using System.Threading.Tasks;
 
 namespace E_Commerce.API
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +21,7 @@ namespace E_Commerce.API
 
 
             var app = builder.Build();
-            app.SeedAndMigrateDataAsync();
+            await app.SeedAndMigrateDataAsync();
 
 
             // Configure the HTTP request pipeline.

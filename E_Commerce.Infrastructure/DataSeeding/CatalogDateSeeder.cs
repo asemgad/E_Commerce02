@@ -39,7 +39,7 @@ namespace E_Commerce.Infrastructure.DataSeeding
                 // Path
                 // "C:\Users\HP\Downloads\Route\.Net\C#\E_Commerce02\E_Commerce.API\bin\Debug\net8.0\DateSeed\products.json"
 
-                var seedRoot = Path.Combine(AppContext.BaseDirectory, "DataSeed");
+                var seedRoot = Path.Combine(AppContext.BaseDirectory, "DateSeed");
 
                 await SeedIfEmptyAsync<ProductBrand , int>(seedRoot , "brands.json" , ct);
                 await SeedIfEmptyAsync< ProductType, int>(seedRoot , "types.json" , ct);

@@ -1,4 +1,5 @@
 
+using E_Commerce.API.Extensions;
 using E_Commerce.Infrastructure;
 
 namespace E_Commerce.API
@@ -19,6 +20,7 @@ namespace E_Commerce.API
 
 
             var app = builder.Build();
+            app.SeedAndMigrateDataAsync();
 
 
             // Configure the HTTP request pipeline.

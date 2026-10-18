@@ -64,7 +64,7 @@ namespace E_Commerce.Infrastructure.DataSeeding
 
         private async Task SeedIfEmptyAsync<T , Tkey> (string rootPath , string fileName , CancellationToken ct) where T : BaseEntity<Tkey>
         {
-            if(!await dbContext.Set<T>().AnyAsync(ct))
+            if(await dbContext.Set<T>().AnyAsync(ct))
             {
                 logger.LogInformation("Table already has date");
                 return;

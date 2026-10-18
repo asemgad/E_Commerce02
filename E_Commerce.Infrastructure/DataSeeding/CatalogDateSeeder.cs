@@ -56,9 +56,12 @@ namespace E_Commerce.Infrastructure.DataSeeding
                 }
 
             }
-            catch 
+            catch  (Exception ex)
             {
                 // Handle exception
+                logger.LogError(ex, "Catalog seeding failed");
+                throw;
+
             }
         }
 

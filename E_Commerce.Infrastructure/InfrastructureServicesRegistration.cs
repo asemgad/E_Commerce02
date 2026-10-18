@@ -1,9 +1,12 @@
-﻿using E_Commerce.Infrastructure.Date;
+﻿using E_Commerce.Domain.Contracts;
+using E_Commerce.Infrastructure.DataSeeding;
+using E_Commerce.Infrastructure.Date;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +21,7 @@ namespace E_Commerce.Infrastructure
             {
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             });
+            services.AddKeyedScoped<IDateSeeder, CatalogDateSeeder>("Catalog");
             return services;
         }
     }

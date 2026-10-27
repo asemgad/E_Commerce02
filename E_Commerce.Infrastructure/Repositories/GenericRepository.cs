@@ -1,6 +1,7 @@
 ﻿using E_Commerce.Domain.Common;
 using E_Commerce.Domain.Contracts;
 using E_Commerce.Infrastructure.Date;
+using E_Commerce.Infrastructure.Specifications;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using System;
@@ -11,16 +12,23 @@ using System.Threading.Tasks;
 
 namespace E_Commerce.Infrastructure.Repositories
 {
-    public class GenericRepository<TEntity, Tkey>(StoreDbContext dbContext) : IGenericRepository<TEntity, Tkey> where TEntity : BaseEntity<Tkey>
+    internal class GenericRepository<TEntity, Tkey>(StoreDbContext dbContext) : IGenericRepository<TEntity, Tkey> where TEntity : BaseEntity<Tkey>
     {
         public void Add(TEntity entity)
         {
            dbContext.Set<TEntity>().Add(entity);
         }
 
-        public async Task<IReadOnlyList<TEntity>> GetAllAsync(CancellationToken ct = default)
+        //public async Task<IReadOnlyList<TEntity>> GetAllAsync(CancellationToken ct = default)
+        //{
+        //   return await dbContext.Set<TEntity>().ToListAsync(ct);
+        //}
+
+        public async Task<IReadOnlyList<TEntity>> GetAllAsync(ISpecification<TEntity, Tkey> spec, CancellationToken ct = default)
         {
-           return await dbContext.Set<TEntity>().ToListAsync(ct);
+            var query = SpecificationEvaluator.CreateQuery<TEntity, Tkey>(dbContext.Set<TEntity>(), spec);
+            return await query.ToListAsync(ct);
+
         }
 
         public async Task<TEntity?> GetByIdAsync(Tkey id, CancellationToken ct = default)

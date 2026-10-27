@@ -12,8 +12,9 @@ namespace E_Commerce.Infrastructure.Repositories
     internal class UnitOfWork(StoreDbContext dbContext) : IUnitOfWork
     {
         private readonly Dictionary<string, object> repos = [];
-        public async Task<IGenericRepository<TEnity, Tkey>> GetGenericRepository<TEnity, Tkey>() where TEnity : BaseEntity<Tkey>
-        {
+        public  IGenericRepository<TEnity, Tkey> GetGenericRepository<TEnity, Tkey>() where TEnity : BaseEntity<Tkey>
+        { 
+        
            var typeName = typeof(TEnity).Name;
             if (repos.TryGetValue(typeName , out object? value))
             {

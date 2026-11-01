@@ -26,8 +26,7 @@ namespace E_Commerce.Application.Services
         }
         public async Task<Result<IReadOnlyList<BrandDto>>> GetAllBrandAsync(CancellationToken ct = default)
         {
-            var spec = new ProductWithTypeAndPlan();
-            var brands = await unit.GetGenericRepository<ProductBrand, int>().GetAllAsync(spec);
+            var brands = await unit.GetGenericRepository<ProductBrand, int>().GetAllAsync(ct);
             var date = mapper.Map<IReadOnlyList<BrandDto>>(brands);
             return Result<IReadOnlyList<BrandDto>>.Ok(date);
 
@@ -54,7 +53,8 @@ namespace E_Commerce.Application.Services
 
         public async Task<Result<IReadOnlyList<ProductDto>>> GetProductsAsync(CancellationToken ct = default)
         {
-            var products = await unit.GetGenericRepository<Product, int>().GetAllAsync(ct);
+            var spec = new ProductWithTypeAndPlan();
+            var products = await unit.GetGenericRepository<Product, int>().GetAllAsync(spec);
             var data = mapper.Map<IReadOnlyList<ProductDto>>(products);
             return Result<IReadOnlyList< ProductDto>>.Ok(data);
         }

@@ -19,10 +19,10 @@ namespace E_Commerce.Infrastructure.Repositories
            dbContext.Set<TEntity>().Add(entity);
         }
 
-        //public async Task<IReadOnlyList<TEntity>> GetAllAsync(CancellationToken ct = default)
-        //{
-        //   return await dbContext.Set<TEntity>().ToListAsync(ct);
-        //}
+        public async Task<IReadOnlyList<TEntity>> GetAllAsync(CancellationToken ct = default)
+        {
+           return await dbContext.Set<TEntity>().ToListAsync(ct);
+        }
 
         public async Task<IReadOnlyList<TEntity>> GetAllAsync(ISpecification<TEntity, Tkey> spec, CancellationToken ct = default)
         {

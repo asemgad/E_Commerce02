@@ -12,5 +12,8 @@ namespace E_Commerce.Domain.Contracts
     {
         ICollection<Expression<Func<TEntity , object>>> icludeRxpressions{ get; }
 
+
+        Expression<Func<TEntity , bool>> Criteria { get; }
+
     }
 }

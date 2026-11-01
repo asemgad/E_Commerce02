@@ -15,6 +15,12 @@ namespace E_Commerce.Infrastructure.Specifications
         {
             var query = inputQuery;
 
+
+            if(spec.Criteria != null)
+            {
+                query = query.Where(spec.Criteria);
+            }
+
             if (spec.icludeRxpressions.Any())
             {
                 query = spec.icludeRxpressions.Aggregate(query, (current, next) => current.Include(next));

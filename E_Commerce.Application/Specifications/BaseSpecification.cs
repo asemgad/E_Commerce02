@@ -13,6 +13,13 @@ namespace E_Commerce.Application.Specifications
     {
         public ICollection<Expression<Func<TEntity, object>>> icludeRxpressions { get; } = [];
 
+        public Expression<Func<TEntity, bool>> Criteria { get; private set;  }
+
+        protected BaseSpecification(Expression<Func<TEntity, bool>> criteria)
+        {
+            Criteria = criteria;
+        }
+
         protected void AddInclude(Expression<Func<TEntity, object>> include)
         {
             icludeRxpressions.Add(include);

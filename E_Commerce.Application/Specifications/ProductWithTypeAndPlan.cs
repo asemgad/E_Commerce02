@@ -22,7 +22,32 @@ namespace E_Commerce.Application.Specifications
 
             AddInclude(p=> p.ProductType);
             AddInclude(p=> p.ProductBrand);
+
+            
+                switch (queryParams.Sort)
+                {
+                    case ProductSortingOptions.NameAscending:
+                        AddOrderBy(p => p.Name);
+                        break;
+                    case ProductSortingOptions.NameDescending:
+                        AddOrderByDescending(p => p.Name);
+                        break;
+                    case ProductSortingOptions.PriceAscending :
+                        AddOrderBy(p => p.Price);
+                        break;
+                    case ProductSortingOptions.PriceDescending:
+                        AddOrderByDescending(p => p.Price);
+                        break;
+                    default:
+                        AddOrderBy(p => p.Id);
+                        break;
+                }
+
+            ApplyPaging(queryParams.PageSize, queryParams.PageIndex);
         }
+
+        
+        
         // get By Id  
         public ProductWithTypeAndPlan(int id ) : base(x => x.Id == id)
         {

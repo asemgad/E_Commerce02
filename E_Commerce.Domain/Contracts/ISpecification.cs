@@ -12,8 +12,13 @@ namespace E_Commerce.Domain.Contracts
     {
         ICollection<Expression<Func<TEntity , object>>> icludeRxpressions{ get; }
 
-
         Expression<Func<TEntity , bool>> Criteria { get; }
+        Expression<Func<TEntity , object>>? OrderBy { get; }
+
+        int Take { get; }
+        int Skip { get; }
+        bool IsPaginated { get; }
+        Expression<Func<TEntity , object>>? OrderByDescending { get; }
 
     }
 }

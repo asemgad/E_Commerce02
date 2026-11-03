@@ -25,6 +25,22 @@ namespace E_Commerce.Infrastructure.Specifications
             {
                 query = spec.icludeRxpressions.Aggregate(query, (current, next) => current.Include(next));
             }
+
+            if(spec.OrderBy != null)
+            {
+                query = query.OrderBy(spec.OrderBy);
+            }
+
+            else if(spec.OrderByDescending != null)
+            {
+                query = query.OrderByDescending(spec.OrderByDescending);
+            }
+
+
+            if(spec.IsPaginated)
+            {
+                query = query.Skip(spec.Skip).Take(spec.Take);
+            }
             return query;
 
         }

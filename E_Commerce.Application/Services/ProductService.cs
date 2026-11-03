@@ -52,12 +52,13 @@ namespace E_Commerce.Application.Services
 
         }
 
-        public async Task<Result<IReadOnlyList<ProductDto>>> GetProductsAsync(ProductQueryParams queryParams, CancellationToken ct = default)
+        public async Task<Result<PaginatedResult<ProductDto>>> GetProductsAsync(ProductQueryParams queryParams, CancellationToken ct = default)
         {
-            var spec = new ProductWithTypeAndPlan(queryParams.BrandId, queryParams.TypeId);
+            var spec = new ProductWithTypeAndPlan(queryParams);
             var products = await unit.GetGenericRepository<Product, int>().GetAllAsync(spec);
             var data = mapper.Map<IReadOnlyList<ProductDto>>(products);
-            return Result<IReadOnlyList<ProductDto>>.Ok(data);
+            var result = new PaginatedResult<ProductDto>(queryParams.PageIndex, queryParams.PageSize, data.Count, data);
+            return Result<PaginatedResult<ProductDto>>.Ok(result);
         }
     }
 }
